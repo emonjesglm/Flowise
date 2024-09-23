@@ -178,6 +178,7 @@ const AddNodes = ({ nodesData, node, isAgentCanvas }) => {
             setNodes(filteredResult)
             accordianCategories['Multi Agents'] = true
             accordianCategories['Sequential Agents'] = true
+            accordianCategories['Memory'] = true
             setCategoryExpanded(accordianCategories)
         } else {
             const taggedNodes = groupByTags(nodes, newTabValue)
@@ -491,35 +492,49 @@ const AddNodes = ({ nodesData, node, isAgentCanvas }) => {
                                                                                 <ListItemText
                                                                                     sx={{ ml: 1 }}
                                                                                     primary={
-                                                                                        <div
-                                                                                            style={{
-                                                                                                display: 'flex',
-                                                                                                flexDirection: 'row',
-                                                                                                alignItems: 'center'
-                                                                                            }}
-                                                                                        >
-                                                                                            <span>{node.label}</span>
-                                                                                            &nbsp;
-                                                                                            {node.badge && (
-                                                                                                <Chip
-                                                                                                    sx={{
-                                                                                                        width: 'max-content',
-                                                                                                        fontWeight: 700,
+                                                                                        <>
+                                                                                            <div
+                                                                                                style={{
+                                                                                                    display: 'flex',
+                                                                                                    flexDirection: 'row',
+                                                                                                    alignItems: 'center'
+                                                                                                }}
+                                                                                            >
+                                                                                                <span>{node.label}</span>
+                                                                                                &nbsp;
+                                                                                                {node.badge && (
+                                                                                                    <Chip
+                                                                                                        sx={{
+                                                                                                            width: 'max-content',
+                                                                                                            fontWeight: 700,
+                                                                                                            fontSize: '0.65rem',
+                                                                                                            background:
+                                                                                                                node.badge === 'DEPRECATING'
+                                                                                                                    ? theme.palette.warning
+                                                                                                                          .main
+                                                                                                                    : theme.palette.teal
+                                                                                                                          .main,
+                                                                                                            color:
+                                                                                                                node.badge !== 'DEPRECATING'
+                                                                                                                    ? 'white'
+                                                                                                                    : 'inherit'
+                                                                                                        }}
+                                                                                                        size='small'
+                                                                                                        label={node.badge}
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                            {node.author && (
+                                                                                                <span
+                                                                                                    style={{
                                                                                                         fontSize: '0.65rem',
-                                                                                                        background:
-                                                                                                            node.badge === 'DEPRECATING'
-                                                                                                                ? theme.palette.warning.main
-                                                                                                                : theme.palette.teal.main,
-                                                                                                        color:
-                                                                                                            node.badge !== 'DEPRECATING'
-                                                                                                                ? 'white'
-                                                                                                                : 'inherit'
+                                                                                                        fontWeight: 700
                                                                                                     }}
-                                                                                                    size='small'
-                                                                                                    label={node.badge}
-                                                                                                />
+                                                                                                >
+                                                                                                    By {node.author}
+                                                                                                </span>
                                                                                             )}
-                                                                                        </div>
+                                                                                        </>
                                                                                     }
                                                                                     secondary={node.description}
                                                                                 />
